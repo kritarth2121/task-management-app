@@ -6,7 +6,6 @@ import {
   BelongsTo,
   hasMany,
   HasMany,
-  beforeSave,
 } from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
 import Task from "./Task";
@@ -31,7 +30,7 @@ export default class TaskStatus extends BaseModel {
   public board: BelongsTo<typeof Board>;
 
   @hasMany(() => Task, {
-    foreignKey: "status_id",
+    foreignKey: "task_status_id",
   })
   public tasks: HasMany<typeof Task>;
 

@@ -13,7 +13,7 @@ export default class TasksController {
 
       const tasks = await taskService.getTasks(
         payload.board_id,
-        payload.status_id
+        payload.task_status_id
       );
 
       return response.json(tasks);
@@ -103,11 +103,11 @@ export default class TasksController {
 
   public async reorder({ request, response }: HttpContextContract) {
     try {
-      const { taskId, statusId, newOrder } = await request.validate({
+      const { task_id, task_status_id, new_order } = await request.validate({
         schema: TaskReorderValidator,
       });
 
-      await taskService.reorderTask(taskId, statusId, newOrder);
+      await taskService.reorderTask(task_id, task_status_id, new_order);
 
       return response.json({ success: true });
     } catch (error) {

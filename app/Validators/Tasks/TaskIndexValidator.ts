@@ -4,7 +4,7 @@ export const TaskIndexValidator = schema.create({
   board_id: schema.number.optional([
     rules.exists({ table: "boards", column: "id" }),
   ]),
-  status_id: schema.number.optional([
+  task_status_id: schema.number.optional([
     rules.exists({ table: "task_statuses", column: "id" }),
   ]),
 });

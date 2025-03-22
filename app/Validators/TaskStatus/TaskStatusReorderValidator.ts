@@ -2,8 +2,8 @@
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
 
 export const TaskStatusReorderValidator = schema.create({
-  statusId: schema.number([
+  task_status_id: schema.number([
     rules.exists({ table: "task_statuses", column: "id" }),
   ]),
-  newOrder: schema.number(),
+  new_order: schema.number(),
 });

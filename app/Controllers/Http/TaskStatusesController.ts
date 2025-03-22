@@ -83,11 +83,11 @@ export default class TaskStatusesController {
 
   public async reorder({ request, response }: HttpContextContract) {
     try {
-      const { statusId, newOrder } = await request.validate({
+      const { task_status_id, new_order } = await request.validate({
         schema: TaskStatusReorderValidator,
       });
 
-      await taskStatusService.reorder(statusId, newOrder);
+      await taskStatusService.reorder(task_status_id, new_order);
 
       return response.json({ success: true });
     } catch (error) {
