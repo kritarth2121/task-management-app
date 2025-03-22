@@ -171,7 +171,10 @@ class TaskService {
       }
 
       await trx.commit();
-      return true;
+
+      const tasks = await this.getTasks(undefined, task.task_status_id);
+
+      return tasks;
     } catch (error) {
       await trx.rollback();
       Logger.error("Error reordering task: %s", error.message);

@@ -107,9 +107,13 @@ export default class TasksController {
         schema: TaskReorderValidator,
       });
 
-      await taskService.reorderTask(task_id, task_status_id, new_order);
+      const tasks = await taskService.reorderTask(
+        task_id,
+        task_status_id,
+        new_order
+      );
 
-      return response.json({ success: true });
+      return response.json({ tasks });
     } catch (error) {
       if (error.code === "E_ROW_NOT_FOUND") {
         return response.status(404).json({

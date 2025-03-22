@@ -152,7 +152,9 @@ class TaskStatusService {
       }
 
       await trx.commit();
-      return true;
+
+      const tasks = this.list(status.board_id);
+      return tasks;
     } catch (error) {
       await trx.rollback();
       Logger.error("Error reordering status: %s", error.message);
