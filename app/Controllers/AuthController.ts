@@ -32,7 +32,7 @@ export default class AuthController {
     });
   }
 
-  public async adminCreateUser({ request, response }: HttpContextContract) {
+  public async createUser({ request, response }: HttpContextContract) {
     const payload = await request.validate({ schema: UserCreateSchema });
 
     const user = await userService.getUserByEmail(payload.email);

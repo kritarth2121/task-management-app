@@ -23,6 +23,8 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+
 import "./routes/BoardRoutes";
 import "./routes/TaskRoutes";
 import "./routes/TaskStatusRoutes";
+import "./routes/AuthRoutes";

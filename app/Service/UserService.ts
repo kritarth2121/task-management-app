@@ -16,9 +16,6 @@ class UserService {
       .where(function (query) {
         query.where("email", email);
       })
-      .where(function (query) {
-        query.where("email_verified", false).orWhere("mobile_verified", false);
-      })
       .where("is_active", false)
       .first();
   }

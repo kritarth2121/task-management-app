@@ -8,4 +8,6 @@ Route.group(() => {
   Route.put("/:id", "TaskStatusesController.update");
   Route.delete("/:id", "TaskStatusesController.destroy");
   Route.post("/reorder", "TaskStatusesController.reorder");
-}).prefix("task-statuses");
+})
+  .prefix("task-statuses")
+  .middleware("auth");

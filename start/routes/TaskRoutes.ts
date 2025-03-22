@@ -11,4 +11,6 @@ Route.group(() => {
   Route.post("/reorder", "TasksController.reorder");
 
   // Task Status Routes
-}).prefix("tasks");
+})
+  .prefix("tasks")
+  .middleware("auth");

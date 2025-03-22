@@ -10,4 +10,6 @@ Route.group(() => {
   Route.delete("/:id", "BoardsController.destroy");
 
   // Task Routes
-}).prefix("boards");
+})
+  .prefix("boards")
+  .middleware("auth");
