@@ -1,13 +1,13 @@
 import Hash from "@ioc:Adonis/Core/Hash";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { LoginSchema } from "App/Validators/Auth/LoginValidator";
-import User from "../Models/User";
-import { userService } from "../Service/UserService";
-import { InvalidCredentialsException } from "../Exceptions/User/InvalidCredentialException";
-import { jwtService } from "./JWTService";
-import { userTransformer } from "../Transformers/UserTransformer";
-import { UserCreateSchema } from "../Validators/Auth/UserValidator";
-import { UserAlreadyExistsException } from "../Exceptions/User/UserAlreadyExistsException";
+import { InvalidCredentialsException } from "../../Exceptions/User/InvalidCredentialException";
+import { UserAlreadyExistsException } from "../../Exceptions/User/UserAlreadyExistsException";
+import User from "../../Models/User";
+import { userService } from "../../Service/UserService";
+import { userTransformer } from "../../Transformers/UserTransformer";
+import { UserCreateSchema } from "../../Validators/Auth/UserValidator";
+import { jwtService } from "../../Service/JWTService";
 
 export default class AuthController {
   public async login({ request, response }: HttpContextContract) {

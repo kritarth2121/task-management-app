@@ -1,6 +1,7 @@
 import Task from "App/Models/Task";
 import Logger from "@ioc:Adonis/Core/Logger";
 import Database from "@ioc:Adonis/Lucid/Database";
+import { TaskCreateDto } from "../DTO/TaskCreateDto";
 
 class TaskService {
   private static instance: TaskService;
@@ -45,7 +46,7 @@ class TaskService {
     }
   }
 
-  public async createTask(payload: Task) {
+  public async createTask(payload: TaskCreateDto) {
     const trx = await Database.transaction();
 
     try {

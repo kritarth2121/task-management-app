@@ -1,7 +1,7 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { jwtService } from "../Controllers/JWTService";
 import User from "../Models/User";
 import { UnauthorizedAccessException } from "../Exceptions/User/UnauthorizedAccessException";
+import { jwtService } from "../Service/JWTService";
 
 export default class AuthMiddleware {
   public async handle(

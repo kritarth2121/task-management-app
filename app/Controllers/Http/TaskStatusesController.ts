@@ -1,10 +1,10 @@
 // app/Controllers/Http/TaskStatusesController.ts
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { taskStatusService } from "../Service/TaskStatusService";
-import { TaskStatusCreateValidator } from "../Validators/TaskStatus/TaskStatusCreateValidator";
-import { TaskStatusReorderValidator } from "../Validators/TaskStatus/TaskStatusReorderValidator";
-import { TaskStatusUpdateValidator } from "../Validators/TaskStatus/TaskStatusUpdateValidator";
-import { TaskStatusIndexValidator } from "../Validators/TaskStatus/TaskStatusIndexValidator";
+import { taskStatusService } from "../../Service/TaskStatusService";
+import { TaskStatusCreateValidator } from "../../Validators/TaskStatus/TaskStatusCreateValidator";
+import { TaskStatusIndexValidator } from "../../Validators/TaskStatus/TaskStatusIndexValidator";
+import { TaskStatusReorderValidator } from "../../Validators/TaskStatus/TaskStatusReorderValidator";
+import { TaskStatusUpdateValidator } from "../../Validators/TaskStatus/TaskStatusUpdateValidator";
 
 export default class TaskStatusesController {
   public async index({ request, response }: HttpContextContract) {

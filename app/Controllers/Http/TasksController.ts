@@ -1,9 +1,11 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { taskService } from "../Service/TaskService";
-import { TaskIndexValidator } from "../Validators/Tasks/TaskIndexValidator";
-import { TaskReorderValidator } from "../Validators/Tasks/TaskReorderValidator";
-import { TaskStoreValidator } from "../Validators/Tasks/TaskStoreValidator";
-import { TaskUpdateValidator } from "../Validators/Tasks/TaskUpdateValidator";
+import { taskService } from "../../Service/TaskService";
+import { TaskIndexValidator } from "../../Validators/Tasks/TaskIndexValidator";
+import { TaskReorderValidator } from "../../Validators/Tasks/TaskReorderValidator";
+import { TaskStoreValidator } from "../../Validators/Tasks/TaskStoreValidator";
+import { TaskUpdateValidator } from "../../Validators/Tasks/TaskUpdateValidator";
+import { TaskCreateDto } from "../../DTO/TaskCreateDto";
+
 export default class TasksController {
   public async index({ request, response }: HttpContextContract) {
     try {
@@ -25,7 +27,9 @@ export default class TasksController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const payload = await request.validate({ schema: TaskStoreValidator });
+      const payload: TaskCreateDto = await request.validate({
+        schema: TaskStoreValidator,
+      });
 
       const task = await taskService.createTask(payload);
 

@@ -1,13 +1,14 @@
 // app/Controllers/Http/BoardsController.ts
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { boardService } from "../Service/BoardService";
-import { BoardCreateValidator } from "../Validators/Boards/BoardCreateValidator";
-import { BoardUpdateValidator } from "../Validators/Boards/BoardUpdateValidator";
+import { boardService } from "../../Service/BoardService";
+import { BoardCreateValidator } from "../../Validators/Boards/BoardCreateValidator";
+import { BoardUpdateValidator } from "../../Validators/Boards/BoardUpdateValidator";
 
 export default class BoardsController {
   public async index({ response }: HttpContextContract) {
     try {
       const boards = await boardService.list();
+
       return response.json(boards);
     } catch (error) {
       return response.status(500).json({
@@ -20,7 +21,9 @@ export default class BoardsController {
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate({ schema: BoardCreateValidator });
+
       const board = await boardService.create(payload);
+
       return response.status(201).json(board);
     } catch (error) {
       return response.status(error.status || 500).json({

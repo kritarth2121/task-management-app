@@ -13,10 +13,14 @@ export default class Board extends BaseModel {
   @column()
   public description: string | null;
 
-  @hasMany(() => Task)
+  @hasMany(() => Task, {
+    foreignKey: "board_id",
+  })
   public tasks: HasMany<typeof Task>;
 
-  @hasMany(() => TaskStatus)
+  @hasMany(() => TaskStatus, {
+    foreignKey: "board_id",
+  })
   public statuses: HasMany<typeof TaskStatus>;
 
   @column.dateTime({ autoCreate: true })

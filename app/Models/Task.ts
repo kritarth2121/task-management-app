@@ -28,7 +28,9 @@ export default class Task extends BaseModel {
   @column()
   public board_id: number;
 
-  @belongsTo(() => Board)
+  @belongsTo(() => Board, {
+    foreignKey: "board_id",
+  })
   public board: BelongsTo<typeof Board>;
 
   @belongsTo(() => TaskStatus, {
