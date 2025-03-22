@@ -13,7 +13,7 @@ class BoardService {
    */
   async list() {
     try {
-      return await Board.query().withCount("tasks");
+      return await Board.query();
     } catch (error) {
       Logger.error("Error fetching boards: %s", error.message);
       throw error;
@@ -59,11 +59,8 @@ class BoardService {
     try {
       const board = await Board.findOrFail(id);
       await board.load((loader) => {
-        loader.load("tasks", (tasksQuery) =>
-          tasksQuery.orderBy("order", "asc")
-        );
         loader.load("statuses", (statusesQuery) =>
-          statusesQuery.orderBy("order", "asc")
+          statusesQuery.preload("tasks").orderBy("order", "asc")
         );
       });
 

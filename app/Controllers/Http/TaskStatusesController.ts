@@ -19,7 +19,7 @@ export default class TaskStatusesController {
     } catch (error) {
       return response.status(500).json({
         message: "Failed to fetch statuses",
-        error: error.message,
+        error: error.messages || error.message,
       });
     }
   }
