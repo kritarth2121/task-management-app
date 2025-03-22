@@ -121,11 +121,11 @@ class TaskStatusService {
   /**
    * Reorder a task status
    */
-  async reorder(statusId: number, newOrder: number) {
+  async reorder(taskStatusId: number, newOrder: number) {
     const trx = await Database.transaction();
 
     try {
-      const status = await TaskStatus.findOrFail(statusId);
+      const status = await TaskStatus.findOrFail(taskStatusId);
       const oldOrder = status.order;
 
       // If order changed

@@ -13,7 +13,7 @@ class TaskService {
     return TaskService.instance;
   }
 
-  public async getTasks(boardId?: number, statusId?: number) {
+  public async getTasks(boardId?: number, taskStatusId?: number) {
     try {
       const query = Task.query();
 
@@ -23,8 +23,8 @@ class TaskService {
         });
       }
 
-      if (statusId) {
-        query.where("task_status_id", statusId);
+      if (taskStatusId) {
+        query.where("task_status_id", taskStatusId);
       }
 
       query.orderBy("order", "asc");
@@ -114,7 +114,11 @@ class TaskService {
     }
   }
 
-  public async reorderTask(taskId: number, statusId: number, newOrder: number) {
+  public async reorderTask(
+    taskId: number,
+    taskStatusId: number,
+    newOrder: number
+  ) {
     const trx = await Database.transaction();
 
     try {
@@ -123,7 +127,7 @@ class TaskService {
       const oldOrder = task.order;
 
       // If moving to a different status
-      if (statusId !== oldStatusId) {
+      if (taskStatusId !== oldStatusId) {
         // Update orders in old status (decrement orders greater than oldOrder)
         await Task.query()
           .where("task_status_id", oldStatusId)
@@ -133,13 +137,13 @@ class TaskService {
 
         // Update orders in new status (increment orders greater than or equal to newOrder)
         await Task.query()
-          .where("task_status_id", statusId)
+          .where("task_status_id", taskStatusId)
           .where("order", ">=", newOrder)
           .increment("order", 1)
           .useTransaction(trx);
 
         // Update the task with new status and order
-        task.task_status_id = statusId;
+        task.task_status_id = taskStatusId;
         task.order = newOrder;
         await task.useTransaction(trx).save();
       }
@@ -148,14 +152,14 @@ class TaskService {
         if (newOrder < oldOrder) {
           // Moving up: increment tasks between new and old positions
           await Task.query()
-            .where("task_status_id", statusId)
+            .where("task_status_id", taskStatusId)
             .whereBetween("order", [newOrder, oldOrder - 1])
             .increment("order", 1)
             .useTransaction(trx);
         } else {
           // Moving down: decrement tasks between old and new positions
           await Task.query()
-            .where("task_status_id", statusId)
+            .where("task_status_id", taskStatusId)
             .whereBetween("order", [oldOrder + 1, newOrder])
             .decrement("order", 1)
             .useTransaction(trx);
