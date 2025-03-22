@@ -45,7 +45,7 @@ class TaskService {
     }
   }
 
-  public async createTask(payload: any) {
+  public async createTask(payload: Task) {
     const trx = await Database.transaction();
 
     try {
@@ -69,7 +69,7 @@ class TaskService {
     }
   }
 
-  public async updateTask(id: number, payload: any) {
+  public async updateTask(id: number, payload: Partial<Task>) {
     const trx = await Database.transaction();
 
     try {
