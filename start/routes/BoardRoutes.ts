@@ -12,4 +12,4 @@ Route.group(() => {
   // Task Routes
 })
   .prefix("boards")
-  // .middleware("auth");
+  .middleware("auth");
