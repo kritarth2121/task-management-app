@@ -125,14 +125,14 @@ class TaskService {
       // If moving to a different status
       if (statusId !== oldStatusId) {
         // Update orders in old status (decrement orders greater than oldOrder)
-        await Database.from("tasks")
+        await Task.query()
           .where("task_status_id", oldStatusId)
           .where("order", ">", oldOrder)
           .decrement("order", 1)
           .useTransaction(trx);
 
         // Update orders in new status (increment orders greater than or equal to newOrder)
-        await Database.from("tasks")
+        await Task.query()
           .where("task_status_id", statusId)
           .where("order", ">=", newOrder)
           .increment("order", 1)
@@ -147,14 +147,14 @@ class TaskService {
       else if (newOrder !== oldOrder) {
         if (newOrder < oldOrder) {
           // Moving up: increment tasks between new and old positions
-          await Database.from("tasks")
+          await Task.query()
             .where("task_status_id", statusId)
             .whereBetween("order", [newOrder, oldOrder - 1])
             .increment("order", 1)
             .useTransaction(trx);
         } else {
           // Moving down: decrement tasks between old and new positions
-          await Database.from("tasks")
+          await Task.query()
             .where("task_status_id", statusId)
             .whereBetween("order", [oldOrder + 1, newOrder])
             .decrement("order", 1)
