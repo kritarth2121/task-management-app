@@ -123,14 +123,14 @@ class TaskService {
 
     try {
       const task = await Task.findOrFail(taskId);
-      const oldStatusId = task.task_status_id;
+      const oldTaskStatusId = task.task_status_id;
       const oldOrder = task.order;
 
       // If moving to a different status
-      if (taskStatusId !== oldStatusId) {
+      if (taskStatusId !== oldTaskStatusId) {
         // Update orders in old status (decrement orders greater than oldOrder)
         await Task.query()
-          .where("task_status_id", oldStatusId)
+          .where("task_status_id", oldTaskStatusId)
           .where("order", ">", oldOrder)
           .decrement("order", 1)
           .useTransaction(trx);
